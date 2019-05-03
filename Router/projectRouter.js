@@ -29,18 +29,21 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.get('/:id/action', async (req, res) => {
-    
-  try {
-    const actions = await db('actions')
-      .where({ project_id: req.params.id })
-    res.status(200).json(actions);
-  } 
-  
-  catch (error) {
-    res.status(500).json({ error: 'Something went wrong getting data from server' });
-  }
-});
+router.get('/project/:id', (req, res) => {
+  const { id } = req.params;
+      db('projects')
+         .where({ id: id })
+         .first()
+         .then(projects => {
+             db('actions')
+               .where({ project_id: id }).then(actions => {
+              (projects.actions = actions);
+                return res.status(200).json(projects);
+              });
+         })
+          .catch(err => {
+              res.status(500).json({ Error: 'We ran into an error getting the project'})
+          });
 
 router.post('/', async (req, res) => {
   const project = req.body;
