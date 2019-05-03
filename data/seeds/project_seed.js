@@ -1,11 +1,11 @@
 exports.seed = function(knex, Promise) {
   // Deletes ALL existing entries
-  return knex('project').del()
+  return knex('projects').del()
     .then(function () {
       // Inserts seed entries
-      return knex('project').insert([
-        {name: 'Birdhouse', description:'Make a birdhouse'},
-        {name: 'Pina Colada', description:"Doctor, ain't there nothin' I can take?."}
+      return knex('projects').insert([
+        {project_name: 'Birdhouse', project_description:'Make a birdhouse'},
+        {project_name: 'Pina Colada', project_description:"Doctor, ain't there nothin' I can take?."}
       ]);
     });
 };

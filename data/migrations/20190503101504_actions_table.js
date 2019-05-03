@@ -14,6 +14,10 @@ exports.up = function(knex, Promise) {
           .string('action_description')
           .notNullable() 
 
+          tbl
+          .string('action_notes')
+          
+
           tbl.boolean('complete').defaultTo(false)
 
         tbl
