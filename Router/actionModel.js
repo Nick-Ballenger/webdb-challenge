@@ -9,8 +9,10 @@ module.exports = {
 };
 
 
-function find() {
-  return db('actions');
+function find(){
+  return db('actions')
+            .join("projects", "actions.project_id", '=', "projects.id")
+            .select("actions.id", "actions.action_name","actions.action_description","actions.action_notes",{ project: "projects.project_name" })
 }
 
 function findById(id) {
@@ -19,7 +21,7 @@ function findById(id) {
   .select(
       'id',
       'action_description as description',
-      'notes',
+      'action_notes',
       'action_complete as complete'
   )
   .where('project_id', id);
