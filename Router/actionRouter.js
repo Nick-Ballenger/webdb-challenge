@@ -16,16 +16,16 @@ router.get('/', (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    const Action = await Action.findById(req.params.id);
-    if (Action) {
-      res.status(200).json(Action);
+    const action = await Action.findById(req.params.id);
+    if (project) {
+      res.status(200).json(action);
     } else {
-      res.status(404).json({ message: 'We could not find the Action' });
+      res.status(404).json({ message: 'We could not find the action' });
     }
   } catch (error) {
     res
       .status(500)
-      .json({ message: 'We ran into an error retrieving the Action' });
+      .json({ message: 'We ran into an error retrieving the action' });
   }
 });
 

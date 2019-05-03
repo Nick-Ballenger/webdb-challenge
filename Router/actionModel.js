@@ -16,15 +16,9 @@ function find(){
 }
 
 function findById(id) {
-  
   return db('actions')
-  .select(
-      'id',
-      'action_description as description',
-      'action_notes',
-      'action_complete as complete'
-  )
-  .where('project_id', id);
+    .where({ id })
+    .first();
 }
 
 function add(actions) {
