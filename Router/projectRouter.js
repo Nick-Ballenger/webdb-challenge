@@ -29,7 +29,23 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-
+router.get("/project/:id", (req, res) => {
+  const { id } = req.params;
+  db("projects")
+    .where({ id: id })
+    .first()
+    .then(projects => {
+      db("actions")
+        .where({ project_id: id })
+        .then(actions => {
+          projects.actions = actions;
+          return res.status(200).json(projects);
+        });
+    })
+    .catch(err => {
+      res.status(500).json({ Error: "Something went wrong with the server." });
+    });
+});
 
 router.post('/', async (req, res) => {
   const project = req.body;
